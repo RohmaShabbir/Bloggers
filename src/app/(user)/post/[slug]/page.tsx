@@ -1,11 +1,16 @@
 import { groq } from "next-sanity";
-import React from "react";
 import { Post } from "../../../../../types";
 import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 import Container from "@/components/Container";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
-import { FiGithub, FiLinkedin, FiInstagram, FiTwitter } from "react-icons/fi";
+import {
+  FaFacebookF,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaYoutube,
+} from "react-icons/fa";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
 import { RichText } from "@/components/RichText";
@@ -31,12 +36,12 @@ export const generateStaticParams = async () => {
 
 const SlugPage = async ({ params: { slug } }: Props) => {
   const query = groq`*[_type == 'post' && slug.current == $slug][0]{
-    ...,
-    body,
-    author->
-}`;
+        ...,
+        body,
+        author->
+    }`;
   const post: Post = await client.fetch(query, { slug });
-  
+
   return (
     <Container className="mb-10">
       <div className="flex items-center mb-10">
@@ -45,7 +50,7 @@ const SlugPage = async ({ params: { slug } }: Props) => {
             src={urlFor(post?.mainImage).url()}
             width={500}
             height={500}
-            alt="main Image"
+            alt="main image"
             className="object-cover w-full"
           />
         </div>
@@ -64,23 +69,46 @@ const SlugPage = async ({ params: { slug } }: Props) => {
             {post?.author?.description}
           </p>
           <div className="flex items-center gap-3">
-            <Link href={"/"} target="blank">
-              <FiLinkedin className="w-8 h-8 text-gray-800 text-xl  flex items-center justify-center hover:text-red-500 duration-200" />
+            <Link
+              href={"https://www.youtube.com/channel/UChkOsij0dhgft0GhHRauOAA"}
+              target="blank"
+              className="w-10 h-10 bg-red-600 text-white text-xl rounded-full flex items-center justify-center hover:bg-[#5442ae] duration-200"
+            >
+              <FaYoutube />
             </Link>
-            <Link href={"/"} target="blank">
-              <FiGithub className="w-8 h-8 text-gray-800 text-xl  flex items-center justify-center hover:text-red-500 duration-200" />
+            <Link
+              href={"https://www.youtube.com/channel/UChkOsij0dhgft0GhHRauOAA"}
+              target="blank"
+              className="w-10 h-10 bg-gray-500 text-white text-xl rounded-full flex items-center justify-center hover:bg-[#5442ae] duration-200"
+            >
+              <FaGithub />
             </Link>
-            <Link href={"/"} target="blank">
-              <FiInstagram className="w-8 h-8 text-gray-800 text-xl  flex items-center justify-center hover:text-red-500 duration-200" />
+            <Link
+              href={"https://www.youtube.com/channel/UChkOsij0dhgft0GhHRauOAA"}
+              target="blank"
+              className="w-10 h-10 bg-[#3e5b98] text-white text-xl rounded-full flex items-center justify-center hover:bg-[#5442ae] duration-200"
+            >
+              <FaFacebookF />
             </Link>
-            <Link href={"/"} target="blank">
-              <FiTwitter className="w-8 h-8 text-gray-800 text-xl  flex items-center justify-center hover:text-red-500 duration-200" />
+            <Link
+              href={"https://www.youtube.com/channel/UChkOsij0dhgft0GhHRauOAA"}
+              target="blank"
+              className="w-10 h-10 bg-[#bc1888] text-white text-xl rounded-full flex items-center justify-center hover:bg-[#5442ae] duration-200"
+            >
+              <FaInstagram />
+            </Link>
+            <Link
+              href={"https://www.youtube.com/channel/UChkOsij0dhgft0GhHRauOAA"}
+              target="blank"
+              className="w-10 h-10 bg-blue-500 text-white text-xl rounded-full flex items-center justify-center hover:bg-[#5442ae] duration-200"
+            >
+              <FaLinkedin />
             </Link>
           </div>
         </div>
       </div>
       <div>
-        <PortableText value={post?.body} components={RichText}/>
+        <PortableText value={post?.body} components={RichText} />
       </div>
     </Container>
   );
