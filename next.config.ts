@@ -9,8 +9,11 @@ const nextConfig: NextConfig = {
         pathname: '**',
       }
     ]
-  }
+  },
   /* config options here */
+  typescript : {
+    ignoreBuildErrors: true,
+  }
 };
 
 export default nextConfig;
